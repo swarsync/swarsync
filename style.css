@@ -1,0 +1,56 @@
+body {
+    font-family: sans-serif;
+    background: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+.container {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+}
+.logo {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+}
+.search-bar {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+.buttons .btn {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    margin: 0.4rem 0;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    text-decoration: none;
+    color: white;
+    transition: background 0.3s ease;
+}
+.btn.spotify { background: #1DB954; }
+.btn.youtube { background: #FF0000; }
+.btn.apple { background: #000000; }
+.btn.jiosaavn { background: #00b386; }
+.btn.amazon { background: #232f3e; }
+.btn.instagram {
+    background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+}
+.link {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #555;
+}
