@@ -1,21 +1,35 @@
-[
-  {
-    "title": "Ye Dua Hai Meri Rab Se",
-    "artist": "Kumar Sanu",
-    "links": {
-      "youtube": "https://music.youtube.com/watch?v=sjN-NGsRg9g",
-      "spotify": "https://open.spotify.com/track/5ewbhvVPRC2pP6GeSWRF7c",
-      "jiosaavn": "https://www.jiosaavn.com/song/ye-dua-hai-meri-rab-se/PSIGZkdWWgQ"
-    }
-  },
-  {
-    "title": "Oo Antava Oo Oo Antava",
-    "artist": "Indravathi Chauhan",
-    "links": {
-      "youtube": "https://www.youtube.com/watch?v=jPQce34waFg",
-      "spotify": "https://open.spotify.com/track/54A95PPoOFYxmehjCSbrrz",
-      "jiosaavn": "https://www.jiosaavn.com/song/oo-antava-oo-oo-antava/NzpYWC0DfUQ"
+<script>
+  let songs = [];
+
+  // Load songs.json
+  fetch('songs.json')
+    .then(response => response.json())
+    .then(data => {
+      songs = data;
+      console.log("Songs loaded:", songs); // Optional for debugging
+    });
+
+  function searchSong() {
+    const query = document.getElementById('searchInput').value.toLowerCase().trim();
+    if (!query) return;
+
+    const result = songs.find(song =>
+      song.title.toLowerCase().includes(query) ||
+      song.artist.toLowerCase().includes(query)
+    );
+
+    const container = document.getElementById('resultContainer');
+    container.innerHTML = '';
+
+    if (result) {
+      container.innerHTML = `
+        <h3>${result.title} - ${result.artist}</h3>
+        <a href="${result.links.youtube}" target="_blank"><button>YouTube Music</button></a>
+        <a href="${result.links.spotify}" target="_blank"><button>Spotify</button></a>
+        <a href="${result.links.jiosaavn}" target="_blank"><button>JioSaavn</button></a>
+      `;
+    } else {
+      container.innerHTML = '<p>❌ Song not found. Try full song name or artist.</p>';
     }
   }
-]
-
+</script>
