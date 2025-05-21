@@ -1,53 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Swarsync</title>
-  <style>
-    body { font-family: sans-serif; padding: 20px; }
-    input { padding: 8px; width: 300px; }
-    button { margin: 5px; padding: 10px 20px; }
-    .result { margin-top: 20px; }
-  </style>
-</head>
-<body>
+<script>
+  let songs = [];
 
-  <h1>Swarsync 🎵</h1>
-  <input type="text" id="searchInput" placeholder="Search a song or artist..." />
-  <button onclick="searchSong()">Search</button>
+  // Load songs.json from your project
+  fetch('songs.json')
+    .then(response => response.json())
+    .then(data => {
+      songs = data;
+      console.log("Songs loaded:", songs); // for debugging
+    });
 
-  <div class="result" id="resultContainer"></div>
+  function searchSong() {
+    const query = document.getElementById('searchInput').value.toLowerCase().trim();
+    const container = document.getElementById('resultContainer');
+    container.innerHTML = ''; // clear previous result
 
-  <script>
-    let songs = [];
+    if (!query) return;
 
-    // Load songs.json
-    fetch('songs.json')
-      .then(response => response.json())
-      .then(data => songs = data);
+    const match = songs.find(song =>
+      song.title.toLowerCase().includes(query) ||
+      song.artist.toLowerCase().includes(query)
+    );
 
-    function searchSong() {
-      const query = document.getElementById('searchInput').value.toLowerCase();
-      const result = songs.find(song =>
-        song.title.toLowerCase().includes(query) || song.artist.toLowerCase().includes(query)
-      );
-
-      const container = document.getElementById('resultContainer');
-      container.innerHTML = '';
-
-      if (result) {
-        container.innerHTML = `
-          <h3>${result.title} - ${result.artist}</h3>
-          <a href="${result.links.youtube}" target="_blank"><button>YouTube Music</button></a>
-          <a href="${result.links.spotify}" target="_blank"><button>Spotify</button></a>
-          <a href="${result.links.jiosaavn}" target="_blank"><button>JioSaavn</button></a>
-        `;
-      } else {
-        container.innerHTML = '<p>Song not found.</p>';
-      }
+    if (match) {
+      container.innerHTML = `
+        <h3>${match.title} - ${match.artist}</h3>
+        <a href="${match.links.spotify}" target="_blank"><button>🎧 Listen on Spotify</button></a>
+        <a href="${match.links.youtube}" target="_blank"><button>▶️ Listen on YouTube Music</button></a>
+        <a href="${match.links.apple}" target="_blank"><button>🍓 Listen on Apple Music</button></a>
+        <a href="${match.links.jiosaavn}" target="_blank"><button>🎵 Listen on JioSaavn</button></a>
+        <a href="${match.links.amazon}" target="_blank"><button>🛒 Listen on Amazon Music</button></a>
+        <a href="${match.links.instagram}" target="_blank"><button>📸 View on Instagram</button></a>
+      `;
+    } else {
+      container.innerHTML = `<p>❌ No match found. Try full song name or artist.</p>`;
     }
-  </script>
-
-</body>
-</html>
+  }
+</script>
